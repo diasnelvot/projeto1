@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Papa's Pitufos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body{
+    height:100%;
+}
+
+/* BODY */
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#eef7ff;
+    color:#222;
+    display:flex;
+    flex-direction:column;
+}
+
+/* CONTEÚDO */
+
+main{
+    flex:1;
+}
+
+/* HEADER */
+
+header{
+    background:linear-gradient(135deg,#005bea,#00c6fb);
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+header h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+header p{
+    font-size:22px;
+}
+
+/* MENU */
+
+nav{
+    background:white;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:18px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav a{
+    text-decoration:none;
+    color:#005bea;
+    font-weight:600;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00a2ff;
+    transform:scale(1.1);
+}
+
+/* TOPO */
+
+.topo{
+    background:#0055aa;
+    color:white;
+    text-align:center;
+    padding:12px;
+    font-size:18px;
+    font-weight:600;
+}
+
+/* CARROSSEL */
+
+.carrossel{
+    overflow:hidden;
+    position:relative;
+}
+
+.slides{
+    display:flex;
+    transition:0.5s ease;
+}
+
+.slide{
+    min-width:100%;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:60px;
+    background:linear-gradient(to right,#d7ecff,#f4fbff);
+}
+
+.slide img{
+    width:280px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.texto{
+    max-width:400px;
+}
+
+.texto h1{
+    font-size:45px;
+    color:#0047b3;
+    margin-bottom:20px;
+}
+
+.texto p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.preco{
+    text-align:center;
+}
+
+.preco h2{
+    font-size:45px;
+    color:#0077ff;
+    margin-bottom:20px;
+}
+
+/* BOTÃO */
+
+.botao{
+    background:linear-gradient(135deg,#0077ff,#00bfff);
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:50px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.botao:hover{
+    transform:translateY(-3px);
+    background:linear-gradient(135deg,#005bea,#0099ff);
+}
+
+/* SETAS */
+
+.seta{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:white;
+    border:none;
+    padding:12px 18px;
+    font-size:22px;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+.esquerda{
+    left:20px;
+}
+
+.direita{
+    right:20px;
+}
+
+/* SEÇÕES */
+
+section{
+    padding:90px 20px;
+}
+
+.titulo{
+    text-align:center;
+    font-size:50px;
+    color:#005bea;
+    margin-bottom:60px;
+}
+
+/* SOBRE */
+
+.sobre-card{
+    background:white;
+    max-width:900px;
+    margin:auto;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.sobre-card img{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+}
+
+.sobre-texto{
+    padding:40px;
+    text-align:center;
+    font-size:18px;
+    line-height:1.8;
+}
+
+/* COZINHEIROS */
+
+.cards{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:40px;
+}
+
+.card{
+    width:380px;
+    background:white;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+}
+
+.img-paizao{
+    object-fit:contain !important;
+    background:#eef7ff;
+    padding:15px;
+}
+
+.card-content{
+    padding:30px;
+    text-align:center;
+}
+
+.card-content h3{
+    font-size:32px;
+    color:#005bea;
+    margin-bottom:15px;
+}
+
+.card-content p{
+    font-size:18px;
+    color:#555;
+}
+
+/* CARDÁPIO */
+
+.container{
+    width:90%;
+    margin:auto;
+}
+
+.secao{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    margin:60px 0;
+    flex-wrap:wrap;
+}
+
+.secao img{
+    width:420px;
+    border-radius:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.conteudo{
+    flex:1;
+}
+
+.conteudo h2{
+    color:#005bea;
+    margin-bottom:25px;
+    font-size:35px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    margin:14px 0;
+    font-size:20px;
+}
+
+/* CONTATO */
+
+.contato{
+    text-align:center;
+}
+
+.contato p{
+    font-size:22px;
+    margin-bottom:30px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:35px;
+    margin-top:auto;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+.slide{
+    flex-direction:column;
+    text-align:center;
+    gap:40px;
+}
+
+.slide img{
+    width:220px;
+}
+
+header h1{
+    font-size:40px;
+}
+
+.texto h1{
+    font-size:35px;
+}
+
+.cards{
+    flex-direction:column;
+    align-items:center;
+}
+
+.card{
+    width:90%;
+}
+
+.secao{
+    flex-direction:column;
+}
+
+.secao img{
+    width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🍔 Papa's Pitufos</h1>
+    <p>O sabor que abraça!</p>
+</header>
+
+
+   <nav>
+    <a href="sobre.html">Sobre</a>
+    <a href="cozinha.html">Cozinha</a>
+    <a href="cardapio.html">Cardapio</a>
+    <a href="contato.html">Contato</a>
+</nav>
+
+
+<main>
+
+<div class="topo">
+    🍔 Promoções especiais do Papa's Pitufos
+</div>
+
+<!-- CARROSSEL -->
+
+<div class="carrossel">
+
+    <div class="slides" id="slides">
+
+        <div class="slide">
+
+            <div class="texto">
+                <h1>Pão dos Sonhos</h1>
+
+                <p>
+                    Um pãozinho macio e quentinho para alegrar
+                    e adoçar seu dia.
+                </p>
+            </div>
+
+            <img src="combro.jpg" alt="Pão">
+
+            <div class="preco">
+                <h2>R$ 29,90</h2>
+
+                <button class="botao">Pedir</button>
+            </div>
+
+        </div>
+
+        <div class="slide">
+
+            <div class="texto">
+                <h1>Bolo Mágico 🎂</h1>
+
+                <p>
+                    Sabor especial da vila com uma explosão
+                    incrível de sabores.
+                </p>
+            </div>
+
+            <img src="bolo.jpg" alt="Bolo">
+
+            <div class="preco">
+                <h2>R$ 39,90</h2>
+
+                <button class="botao">Pedir</button>
+            </div>
+
+        </div>
+
+        <div class="slide">
+
+            <div class="texto">
+                <h1>Sobremesa Azul 🍰</h1>
+
+                <p>
+                    Doce irresistível feito com ajuda dos animais
+                    mágicos da vila.
+                </p>
+            </div>
+
+            <img src="cupcake.jpg" alt="Cupcake">
+
+            <div class="preco">
+                <h2>R$ 14,90</h2>
+
+                <button class="botao">Pedir</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="seta esquerda" onclick="voltarSlide()">❮</button>
+    <button class="seta direita" onclick="proximoSlide()">❯</button>
+
+</div>
+
+<!-- SOBRE -->
+
+<section id="sobre">
+
+    <h2 class="titulo">Sobre</h2>
+
+    <div class="sobre-card">
+
+        <img src="fachada.jpg" alt="Restaurante">
+
+        <div class="sobre-texto">
+            Nosso chef começou cozinhando em sua pequena vila
+            para amigos e familiares. Depois de muito incentivo,
+            estudou gastronomia e hoje possui o restaurante mais
+            famoso da vila dos pitufos.
+        </div>
+
+    </div>
+
+</section>
+
+<!-- COZINHEIROS -->
+
+<section id="cozinha">
+
+    <h2 class="titulo">Nossos Cozinheiros</h2>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <img src="pai.jpg"
+            alt="Papa Pitufo"
+            class="img-paizao">
+
+            <div class="card-content">
+                <h3>Papa Pitufo</h3>
+
+                <p>
+                    Mestre da culinária azul e responsável
+                    pelos sabores mágicos da vila.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <img src="Pitufina.jpg"
+            alt="Pitufina">
+
+            <div class="card-content">
+                <h3>Pitufina</h3>
+
+                <p>
+                    Especialista em sobremesas encantadas
+                    e receitas irresistíveis.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <img src="pp.jpg"
+            alt="Pitufo">
+
+            <div class="card-content">
+                <h3>Pitufo</h3>
+
+                <p>
+                    Dono do restaurante e criador das
+                    promoções da vila.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CARDÁPIO -->
+
+<section id="cardapio">
+
+    <h2 class="titulo">Cardápio</h2>
+
+    <div class="container">
+
+        <div class="secao">
+
+            <img src="queijos_azuis.jpg" alt="Entradas">
+
+            <div class="conteudo">
+
+                <h2>Entradas</h2>
+
+                <div class="item">
+                    <span>Queijo Azul</span>
+                    <span>R$ 20</span>
+                </div>
+
+                <div class="item">
+                    <span>Pipoca Azul</span>
+                    <span>R$ 20</span>
+                </div>
+
+                <div class="item">
+                    <span>Bruschetta Azul</span>
+                    <span>R$ 20</span>
+                </div>
+
+                <div class="item">
+                    <span>Guacamole e tortilhas Azul</span>
+                    <span>R$ 35</span>
+                </div>
+            </div>
+
+        </div>
+
+       <div class="secao">
+
+    <img src="macarrao.jpg" alt="Pratos">
+
+    <div class="conteudo">
+
+        <h2>Pratos Principais</h2>
+
+        <div class="item">
+            <span>Strogonoff Azul</span>
+            <span>R$ 40</span>
+        </div>
+
+        <div class="item">
+            <span>Bobó Azul</span>
+            <span>R$ 67</span>
+        </div>
+
+        <div class="item">
+            <span>Camarão Azul</span>
+            <span>R$ 87</span>
+        </div>
+
+        <div class="item">
+            <span>Lasanha Azul</span>
+            <span>R$ 87</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="secao">
+
+    <img src="bolos.jpg" alt="Sobremesas">
+
+    <div class="conteudo">
+
+        <h2>Sobremesas</h2>
+
+        <div class="item">
+            <span>Merengue de mirtilo Azul</span>
+            <span>R$ 25</span>
+        </div>
+
+        <div class="item">
+            <span>Pipoca doce Azul com ninho</span>
+            <span>R$ 20</span>
+        </div>
+
+        <div class="item">
+            <span>Bolo Azul</span>
+            <span>R$ 48</span>
+        </div>
+
+        <div class="item">
+            <span>Donuts Azul</span>
+            <span>R$ 35</span>
+        </div>
+
+    </div>
+
+</div>
+        <div class="secao">
+
+    <img src="bebida.jpg" alt="Bebidas">
+
+    <div class="conteudo">
+
+        <h2>Bebidas</h2>
+
+        <div class="item">
+            <span>Milkshake Azul</span>
+            <span>R$ 22</span>
+        </div>
+
+        <div class="item">
+            <span>Drinks azuis (alcoólicos e não alcoólicos)</span>
+            <span>R$ 12</span>
+        </div>
+
+        <div class="item">
+            <span>Suco Azul</span>
+            <span>R$ 18</span>
+        </div>
+
+        <div class="item">
+            <span>Coquetel Oceano Azul</span>
+            <span>R$ 30</span>
+        </div>
+
+    </div>
+
+</div>        
+</section>
+         
+<!-- CONTATO -->
+
+<section id="contato" class="contato">
+
+    <h2 class="titulo">Contato</h2>
+
+    <p> Ligue (40028922)
+    Faça já sua reserva!</p>
+
+    <a href="contato.html">
+    <button class="botao"
+        onclick="alert('Voce esta sendo direcionado para o formulario de pedidos, clique em ok.')">
+        Pedir
+    </button>
+</a>
+
+
+</section>
+
+</main>
+
+<footer>
+    © 2026 Papa's Pitufos 💙
+</footer>
+
+<script>
+
+let index = 0;
+
+const slides =
+document.getElementById("slides");
+
+const total =
+slides.children.length;
+
+function atualizarSlide(){
+
+    slides.style.transform =
+    "translateX(-" + (index * 100) + "%)";
+
+}
+
+function proximoSlide(){
+
+    index++;
+
+    if(index >= total){
+        index = 0;
+    }
+
+    atualizarSlide();
+
+}
+
+function voltarSlide(){
+
+    index--;
+
+    if(index < 0){
+        index = total - 1;
+    }
+
+    atualizarSlide();
+
+}
+
+setInterval(proximoSlide,4000);
+
+</script>
+
+</body>
+</html>
